@@ -2,6 +2,7 @@ package org.ucsc.railboost_mobile
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.animateFloatAsState
@@ -47,7 +48,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import org.ucsc.railboost_mobile.api.RetrofitInstance
+import org.ucsc.railboost_mobile.data.LoginRequestDTO
+import org.ucsc.railboost_mobile.data.LoginResponseDTO
+import org.ucsc.railboost_mobile.ui.screens.Signin
 import org.ucsc.railboost_mobile.ui.theme.RailBoostTheme
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,76 +67,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CreateLogin()
+                    Signin()
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun CreateLogin(
-    modifier: Modifier = Modifier
-) {
-    val isImeVisible by rememberImeState()
-
-    Column(
-        modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            RailBoostLogo(isImeVisible = isImeVisible)
-            Spacer(modifier = Modifier.height(10.dp))
-            LoginInput()
-        }
-}
-
-
-@Composable
-fun RailBoostLogo(modifier: Modifier = Modifier, isImeVisible: Boolean) {
-    val animatedLogoHide by animateFloatAsState(
-        targetValue = if (isImeVisible) 0f else 0.35f,
-        label = ""
-    )
-    Image(
-        modifier = modifier.fillMaxHeight(animatedLogoHide),
-        painter = painterResource(id = R.drawable.logo),
-        contentDescription = null
-    )
-}
-
-
-@Composable
-fun LoginInput(modifier: Modifier = Modifier) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
-    Column(
-        modifier.fillMaxSize(0.8f),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = username,
-            onValueChange = {username = it},
-            label = { Text(text = "Username")},
-            singleLine = true
-        )
-        TextField(
-            modifier = modifier.fillMaxWidth(),
-            value = password,
-            onValueChange = {password = it},
-            label = { Text(text = "Password")},
-            visualTransformation = PasswordVisualTransformation(),
-            singleLine = true
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Button(
-            onClick = { /*TODO*/ },
-            Modifier.fillMaxWidth()
-        ) {
-            Text(text = "Login")
         }
     }
 }
@@ -138,6 +79,6 @@ fun LoginInput(modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     RailBoostTheme {
-        CreateLogin()
+        Signin()
     }
 }
