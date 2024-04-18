@@ -4,13 +4,13 @@ import android.util.Log
 import org.ucsc.railboost_mobile.api.RetrofitInstance
 import org.ucsc.railboost_mobile.data.LoginRequestDTO
 import org.ucsc.railboost_mobile.data.LoginResponseDTO
+import org.ucsc.railboost_mobile.viewmodels.LoginViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.log
 
 class LoginRepo {
-    fun signin(username: String, password: String) {
+    fun signin(username: String, password: String, loginViewModel: LoginViewModel) {
         val loginReq = LoginRequestDTO(username, password)
         RetrofitInstance.loginApi.login(loginReq).enqueue(object: Callback<LoginResponseDTO> {
             override fun onResponse(
@@ -19,11 +19,12 @@ class LoginRepo {
             ) {
                 val isSuccessful = response.isSuccessful
 
-                val loginResp: LoginResponseDTO? = response.body()
+                val loginResp = response.body()
                 if (isSuccessful && loginResp!=null) {
-                    Log.d("login", loginResp.username)
-                    Log.d("login", loginResp.role.toString())
-                    Log.d("login", loginResp.jwt)
+                    loginViewModel.onLoginSuccess(loginResp)
+//                    Log.d("login", loginResp.username)
+//                    Log.d("login", loginResp.role.toString())
+//                    Log.d("login", loginResp.jwt)
                 }
                 Log.d("login", response.body().toString())
             }
@@ -31,7 +32,6 @@ class LoginRepo {
             override fun onFailure(call: Call<LoginResponseDTO>, t: Throwable) {
                 t.message?.let { Log.d("login", it) }
             }
-
         })
     }
 }
