@@ -2,13 +2,17 @@ package org.ucsc.railboost_mobile.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.ucsc.railboost_mobile.data.LoginResponseDTO
 import org.ucsc.railboost_mobile.repository.LoginRepo
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val loginRepo: LoginRepo
+) : ViewModel() {
 
     fun onLoginButtonClick(username: String, password: String) {
-        val loginRepo = LoginRepo()
         loginRepo.signin(username, password, this)
     }
 
