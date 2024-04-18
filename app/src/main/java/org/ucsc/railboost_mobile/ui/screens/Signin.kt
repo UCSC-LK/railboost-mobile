@@ -31,13 +31,15 @@ import org.ucsc.railboost_mobile.data.LoginResponseDTO
 import org.ucsc.railboost_mobile.rememberImeState
 import org.ucsc.railboost_mobile.repository.LoginRepo
 import org.ucsc.railboost_mobile.ui.theme.RailBoostTheme
+import org.ucsc.railboost_mobile.viewmodels.LoginViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 @Composable
 fun Signin(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    loginViewModel: LoginViewModel = LoginViewModel()
 ) {
     val loginRepo = LoginRepo()
 
@@ -50,7 +52,7 @@ fun Signin(
     ) {
         RailBoostLogo(isImeVisible = isImeVisible)
         Spacer(modifier = Modifier.height(10.dp))
-        LoginInput(loginRepo = loginRepo)
+        LoginInput(loginRepo = loginRepo, loginViewModel = loginViewModel)
     }
 }
 
@@ -70,7 +72,7 @@ fun RailBoostLogo(modifier: Modifier = Modifier, isImeVisible: Boolean) {
 
 
 @Composable
-fun LoginInput(modifier: Modifier = Modifier, loginRepo: LoginRepo) {
+fun LoginInput(modifier: Modifier = Modifier, loginRepo: LoginRepo, loginViewModel: LoginViewModel) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -97,7 +99,8 @@ fun LoginInput(modifier: Modifier = Modifier, loginRepo: LoginRepo) {
         Spacer(modifier = Modifier.height(10.dp))
         Button(
             onClick = {
-                loginRepo.signin(username, password)
+//                loginRepo.signin(username, password)
+                loginViewModel.onLoginButtonClick(username, password)
             },
             Modifier.fillMaxWidth()
         ) {
