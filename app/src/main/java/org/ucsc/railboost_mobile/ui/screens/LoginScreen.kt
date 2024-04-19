@@ -33,7 +33,6 @@ fun Signin(
     modifier: Modifier = Modifier,
     loginViewModel: LoginViewModel = viewModel()
 ) {
-    val loginRepo = LoginRepo()
 
     val isImeVisible by rememberImeState()
 
@@ -44,7 +43,7 @@ fun Signin(
     ) {
         RailBoostLogo(isImeVisible = isImeVisible)
         Spacer(modifier = Modifier.height(10.dp))
-        LoginInput(loginRepo = loginRepo, loginViewModel = loginViewModel)
+        LoginInput(loginViewModel = loginViewModel)
     }
 }
 
@@ -64,7 +63,7 @@ fun RailBoostLogo(modifier: Modifier = Modifier, isImeVisible: Boolean) {
 
 
 @Composable
-fun LoginInput(modifier: Modifier = Modifier, loginRepo: LoginRepo, loginViewModel: LoginViewModel) {
+fun LoginInput(modifier: Modifier = Modifier, loginViewModel: LoginViewModel) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 

@@ -16,17 +16,30 @@ class LoginViewModel @Inject constructor(
     private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
 
-    fun onLoginButtonClick(username: String, password: String) {
-        loginRepo.signin(username, password, this)
+//    fun onLoginButtonClick(username: String, password: String) {
+//        loginRepo.signin(username, password, this)
+//    }
+
+    fun onLoginButtonClick(username: String, password: String) = viewModelScope.launch {
+        val response = loginRepo.login(username, password)
+        Log.d("login", response.toString())
+
+        if(response.isSuccessful) {
+            val loginResp = response.body()
+            Log.d("login", loginResp.toString())
+
+            if (loginResp!=null)
+                saveUserInfo(loginResp)
+        }
     }
 
 
-    fun onLoginSuccess(loginResp: LoginResponseDTO) {
-        saveUserInfo(loginResp)
-        Log.d("login", loginResp.username)
-        Log.d("login", loginResp.role.toString())
-        Log.d("login", loginResp.jwt)
-    }
+//    fun onLoginSuccess(loginResp: LoginResponseDTO) {
+//        saveUserInfo(loginResp)
+//        Log.d("login", loginResp.username)
+//        Log.d("login", loginResp.role.toString())
+//        Log.d("login", loginResp.jwt)
+//    }
 
     private fun saveUserInfo(loginResp: LoginResponseDTO) {
         viewModelScope.launch {

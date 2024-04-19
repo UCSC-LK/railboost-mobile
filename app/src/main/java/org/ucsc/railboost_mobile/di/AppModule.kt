@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
+import org.ucsc.railboost_mobile.api.LoginAPI
 import org.ucsc.railboost_mobile.repository.LoginRepo
 import javax.inject.Singleton
 
@@ -13,7 +14,7 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
-    fun provideLoginRepo(): LoginRepo {
-        return LoginRepo()
+    fun provideLoginRepo(loginAPI: LoginAPI): LoginRepo {
+        return LoginRepo(loginAPI)
     }
 }
