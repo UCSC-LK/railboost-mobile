@@ -32,6 +32,8 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             dataStoreManager.setData("username", loginResp.username)
             dataStoreManager.setData("jwt", loginResp.jwt)
+            dataStoreManager.setData("userId", loginResp.userId.toString())
+            dataStoreManager.setData("roleId", loginResp.role.roleId.toString())
         }
     }
 }
