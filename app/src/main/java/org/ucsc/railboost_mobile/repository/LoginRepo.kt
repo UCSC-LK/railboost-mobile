@@ -22,9 +22,6 @@ class LoginRepo {
                 val loginResp = response.body()
                 if (isSuccessful && loginResp!=null) {
                     loginViewModel.onLoginSuccess(loginResp)
-//                    Log.d("login", loginResp.username)
-//                    Log.d("login", loginResp.role.toString())
-//                    Log.d("login", loginResp.jwt)
                 }
                 Log.d("login", response.body().toString())
             }

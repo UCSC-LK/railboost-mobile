@@ -1,6 +1,5 @@
 package org.ucsc.railboost_mobile.ui.screens
 
-import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -22,24 +21,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import org.ucsc.railboost_mobile.R
-import org.ucsc.railboost_mobile.api.RetrofitInstance
-import org.ucsc.railboost_mobile.data.LoginRequestDTO
-import org.ucsc.railboost_mobile.data.LoginResponseDTO
 import org.ucsc.railboost_mobile.rememberImeState
 import org.ucsc.railboost_mobile.repository.LoginRepo
-import org.ucsc.railboost_mobile.ui.theme.RailBoostTheme
 import org.ucsc.railboost_mobile.viewmodels.LoginViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @Composable
 fun Signin(
     modifier: Modifier = Modifier,
-    loginViewModel: LoginViewModel = LoginViewModel()
+    loginViewModel: LoginViewModel = viewModel()
 ) {
     val loginRepo = LoginRepo()
 

@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import dagger.hilt.android.AndroidEntryPoint
 import org.ucsc.railboost_mobile.api.RetrofitInstance
 import org.ucsc.railboost_mobile.data.LoginRequestDTO
 import org.ucsc.railboost_mobile.data.LoginResponseDTO
@@ -57,6 +58,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
